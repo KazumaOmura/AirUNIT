@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<link rel="stylesheet" media="all" href="../css/style.css">
+<link rel="stylesheet" media="all" href="css/login_form.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>会員登録完了｜広島市立大学 履修確認一覧サービス</title>
+
+<!-- Bootstrap読み<?php
+
+session_start();
+if( isset($_SESSION['user']) != "") {
+  // ログイン済みの場合はリダイレクト
+  header("Location: home.php");
+}
+// DBとの接続
+include_once 'dbconnect.php';
+
+// signupがPOSTされたときに下記を実行
+if(isset($_POST['signup'])) {
+
+  $username = $mysqli->real_escape_string($_POST['username']);
+  $email = $mysqli->real_escape_string($_POST['email']);
+  $facluty = $mysqli->real_escape_string($_POST['facluty']);
+  $facluty_detail = $mysqli->real_escape_string($_POST['facluty_detail']);
+  $enter_year = $mysqli->real_escape_string($_POST['enter_year']);
+  $password = $mysqli->real_escape_string($_POST['password']);
+  $password = password_hash($password, PASSWORD_DEFAULT);
+
+      // クエリの実行
+      $query = "SELECT username FROM users";
+      $result = $mysqli->query($query);
+
+      while ($row = $result->fetch_assoc()){
+        $old_username = $row['username'];
+
+        if($old_username == $username){
+          ?>
+          <div class="alert alert-danger" role="alert">既に同じユーザー名で登録されています。別のユーザー名を入力してください。</div>
+          <?php
+          header("Location: error_username.html");
+          exit;
+        }
+      }
+
+      // クエリの実行
+      $query = "SELECT email FROM users";
+      $result = $mysqli->query($query);
+
+      while ($row = $result->fetch_assoc()){
+        $old_email = $row['email'];
+
+        if($old_email == $email){
+          ?>
+          <div class="alert alert-danger" role="alert">既に同じメールアドレスで登録されています。別のユーザー名を入力してください。</div>
+          <?php
+          header("Location: error_email.html");
+          exit;
+        }
+      }
+
+
+  // POSTされた情報をDBに格納する
+  $query = "INSERT INTO users(username,email,facluty,facluty_detail,enter_year,password) VALUES('$username','$email','$facluty','$facluty_detail','$enter_year','$password')";
+
+  if($mysqli->query($query)) {  ?>
+    <div class="alert alert-success" role="alert">登録しました</div>
+    <div class="success_login">ログインページは<a href="index.php">こちら</a></div>
+    <?php
+    header("Location: success_register.html");
+    exit;
+  } 
+    
+  else { ?>
+    <div class="alert alert-danger" role="alert">エラーが発生しました。</div>
+    <?php
+    header("Location: error.html");
+    exit;
+  }
+}
+
+?>
+
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<link rel="stylesheet" media="all" href="../css/style.css">
+<link rel="stylesheet" media="all" href="css/login_form.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>新規会員登録｜広島市立大学 履修確認一覧サービス</title>
+<link rel="stylesheet" href="style.css">
+
+<!-- Bootstrap読み込み（スタイリングのため） -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="hcu_header">
+<div class="hcu_header_left">
+<p>広島市立大学単位確認サービス</p>
+</div>
+<div class="pc_area">
+<div class="hcu_header_right">
+<p>日常のひと手間をラクにするサービス</p>
+</div>
+</div>
+</div>
+
+<div class="hcu_header2">
+<a href="https://kazufolio.com/login/index.php"><img src="images/air_unit.png"></a>
+<a href="home.php" class="btn-gradient-3d-simple"><center><b>ホーム</b></center></a>
+<a href="register.php" class="btn-gradient-3d-orange"><center><b>新規登録</b></center></a>
+</div>
+
+</br></br></br></br></br></br></br></br></br></br>
+</br></br></br>
+
+<div class="hcu">
+  <center>
+    <div class="login_contents">
+      <h2 class="sub_index">既にメールアドレスで登録されています。別のメールアドレスを入力してください。</h2>
+    </center>
+    
+
+</br></br></br></br></br></br></br></br></br></br>
+</br></br></br></br></br></br></br></br></br></br>
+</br></br></br></br></br></br></br></br>
+</div>
+<div id="footer">
+        <a href="https://twitter.com/kazumaaa14"><img src="../images/iconTw_fotter.png" class="sns_img"></a>
+        <a href="https://www.instagram.com/kazumaaa14/?hl=ja"><img src="../images/iconInsta_footer.png" class="sns_img"></a>
+        <p class="copylight">-  ©︎ 2020 Kazuma Omura  -</p>
+        
+<div>
+</body>
+</html>
